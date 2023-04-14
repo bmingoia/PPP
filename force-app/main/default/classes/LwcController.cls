@@ -6,14 +6,10 @@ public with sharing class LwcController {
         return wrapper;
     }
 
-
-    /*
     @AuraEnabled(cacheable=true)
-    public static TrailWrapper getUnitWrapper(Id unitId) {
+    public static UnitWrapper getUnitWrapper(Id unitId) {
         // Llamada al método del servicio UnitService
-        TrailWrapper wrapper = UnitService.getUnitWrapper(ModuleId);
+        UnitWrapper wrapper = UnitService.getUnitWrapper(unitId);
         return wrapper;
     }
-    */
-
 }

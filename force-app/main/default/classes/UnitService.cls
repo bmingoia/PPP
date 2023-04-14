@@ -67,7 +67,7 @@ public with sharing class UnitService {
 
         // Obtener los módulos relacionados a través de la relación Module__c en los registros de Trail_Module__c
         //List<Module__c> modules = [SELECT Id, Name, Description__c FROM Module__c WHERE Id IN :moduleIds];
-        List<Module__c> modules = [SELECT Id, Name, Description__c, (SELECT Id, Name, Time__c, Points__c FROM Units__r) FROM Module__c WHERE Id IN :moduleIds];
+        List<Module__c> modules = [SELECT Id, Name, Description__c, Points__c, TotalTime__c, (SELECT Id, Name, Time__c, Points__c FROM Units__r) FROM Module__c WHERE Id IN :moduleIds];
         wrapper.modules = modules;
 
         List<UserUnit__c> userUnits = [SELECT Id, Status__c, Unit__c FROM UserUnit__c WHERE Unit__c IN (SELECT Id FROM Unit__c WHERE Module__c IN :modules) AND User__c = :UserInfo.getUserId() AND Status__c = 'Success'];
@@ -91,37 +91,18 @@ public with sharing class UnitService {
         return wrapper;
     }
 
-/*    
+
     @AuraEnabled(cacheable = false)    
     public static UnitWrapper getUnitWrapper(Id unitId) {
         UnitWrapper wrapper = new UnitWrapper();
     
         // Query for Unit__c record and populate wrapper.unit
-        wrapper.unit = [SELECT Id, Name, Description__c FROM Unit__c WHERE Id = :unitId];
+        wrapper.unit = [SELECT Id, Name, Time__c, Points__c, Content__c  FROM Unit__c WHERE Id = :unitId];
+
+        // Query for related Question__c records and their related Options__c records and populate wrapper.questions
+        wrapper.questions = [SELECT Id, Name, Content__c, (SELECT Id, Name, Content__c FROM Answers__r) FROM Question__c WHERE Unit__c =: unitId];
     
-        // Query for related Question__c records and their related Answers__c records and populate wrapper.questions
-        wrapper.questions = [SELECT Id, Name, Content__c,
-            (SELECT Id, Content__c, Correct__c FROM Answers__r)
-            FROM Question__c WHERE Unit__c = :unitId];
-        
-        System.debug(wrapper);
         return wrapper;
     }
-*/
 
 }
-
-
-
-/*
-        for (Module__c module : modules) {
-            for (Unit__c unit : module.Units__r) {
-                for (UserUnit__c userUnit : userUnits) {
-                    if (userUnit.Unit__c == unit.Id) {
-                        passedModuleIds.add(module.Id);
-                        passedUnitIds.add(unit.Id);
-                        break;
-                    }
-                }
-            }
-        }*/
