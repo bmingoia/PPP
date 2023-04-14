@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RoleAndSkill</fullName>
+    <active>true</active>
+    <description>Al momento de activar un módulo se deberá validar que el mismo tenga rol y skills (el módulo puede ser creado con dichos campos vacíos).</description>
+    <errorConditionFormula>IF(
+Active__c == true,
+AND(
+ISPICKVAL(Skills__c, &quot;&quot;),
+ISPICKVAL(Role__c, &quot;&quot;)
+),
+false
+)</errorConditionFormula>
+    <errorMessage>Para activar un módulo se deberá validar que el mismo tenga rol y skills</errorMessage>
+</ValidationRule>
