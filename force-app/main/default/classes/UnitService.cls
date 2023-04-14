@@ -53,9 +53,9 @@ public with sharing class UnitService {
     public static TrailWrapper getTrailWrapper(Id trailId) {
         TrailWrapper wrapper = new TrailWrapper();
         
-        wrapper.trail = [SELECT Name, Description__c, TotalPoints__c, TotalTime__c, TrailModule__r.timeTrailModule__c 
-                FROM Trail__c 
-                WHERE Id = :trailId];
+        wrapper.trail = [SELECT Name, Description__c
+                    FROM Trail__c 
+                    WHERE Id = :trailId];
         
         // Obtener los registros de Trail_Module__c que están relacionados con el trailId dado
         List<Trail_Module__c> trailModules = [SELECT Module__c FROM Trail_Module__c WHERE Trail__c = :trailId];

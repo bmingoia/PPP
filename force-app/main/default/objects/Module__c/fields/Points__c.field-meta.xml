@@ -3,8 +3,9 @@
     <fullName>Points__c</fullName>
     <externalId>false</externalId>
     <label>Points</label>
+    <summarizedField>Unit__c.Points__c</summarizedField>
     <summaryForeignKey>Unit__c.Module__c</summaryForeignKey>
-    <summaryOperation>count</summaryOperation>
+    <summaryOperation>sum</summaryOperation>
     <trackTrending>false</trackTrending>
     <type>Summary</type>
 </CustomField>
